@@ -1,0 +1,7 @@
+.build
+BUILD
+.mbed
+projectfiles
+*.py*
+.vscode
+__pycache__

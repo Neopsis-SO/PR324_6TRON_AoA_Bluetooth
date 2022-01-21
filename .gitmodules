@@ -1,0 +1,6 @@
+[submodule "mbed-os"]
+	path = mbed-os
+	url = https://github.com/ARMmbed/mbed-os.git
+[submodule "zest-core-stm32l4a6rg"]
+	path = zest-core-stm32l4a6rg
+	url = https://gitlab.com/catie_6tron/zest-core-stm32l4a6rg.git
