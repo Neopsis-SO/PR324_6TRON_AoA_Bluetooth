@@ -5,15 +5,14 @@
 
 #include "mbed.h"
 
+#include "src/UART/UART.h"
 
 // Blinking rate in milliseconds
 #define BLINKING_RATE     500ms
-#define UART_SLEEP  1000ms
-#define BAUD_RATE   9600
 
-BufferedSerial serial_port (UART1_TX, UART1_RX);
 char buffer[256] = "First send with UART\n";
 int bufferSize = 0;
+int returnedValue = 0;
 
 int main()
 {
@@ -24,20 +23,15 @@ int main()
     bool led;
 #endif
 
-    // Initialise the serial communication
-    serial_port.set_baud(BAUD_RATE);
-    serial_port.set_format(
-        /* bits */ 8,
-        /* parity */ BufferedSerial::None,
-        /* stop bit */ 1
-    );
-
-    printf("Lauched !\n");
+    returnedValue = UARTInitialization();
+    if(!returnedValue) {
+        printf("UART lauched !\n");
+    } else {
+        printf("UART not lauched !\n");
+    }
     serial_port.write(buffer, sizeof(buffer));
 
     while (true) {
-        
-        serial_port.write(buffer, sizeof(buffer));
         if (uint32_t bufferSize = serial_port.read(buffer, sizeof(buffer))) {
             // Toggle the LED.
             led.write(!led);
