@@ -5,7 +5,7 @@
 
 #include "mbed.h"
 
-#include "src/UART/UART.h"
+#include "UART/UART.h"
 
 // Blinking rate in milliseconds
 #define BLINKING_RATE     500ms
