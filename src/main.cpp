@@ -3,42 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include "mbed.h"
+#include "6TRON_AoA_Bluetooth.h"
 
 #include "UART/UART.h"
 
-// Blinking rate in milliseconds
-#define BLINKING_RATE     500ms
-
-char buffer[256] = "First send with UART\n";
-int bufferSize = 0;
-int returnedValue = 0;
 
 int main()
 {
-    // Initialise the digital pin LED1 as an output
-#ifdef LED1
-    DigitalOut led(LED1);
-#else
-    bool led;
-#endif
-
-    returnedValue = UARTInitialization();
-    if(!returnedValue) {
-        printf("UART lauched !\n");
+    rtos::Thread UART_TaskOS(UART_TASK_PRIORITY, UART_TASK_STACK_SIZE, NULL, NULL);
+    if (UART_TaskOS.start(UART_Task) != osOK)
+    {
+        printf("UART OS start failed\n\r");
     } else {
-        printf("UART not lauched !\n");
+        printf("UART OS start success\n\r");
     }
-    serial_port.write(buffer, sizeof(buffer));
 
-    while (true) {
-        if (uint32_t bufferSize = serial_port.read(buffer, sizeof(buffer))) {
-            // Toggle the LED.
-            led.write(!led);
 
-            // Echo the input back to the terminal.
-            serial_port.write(buffer, bufferSize);
-        }
+    while (true)
+    {
+        
         ThisThread::sleep_for(UART_SLEEP);
     }
 }
