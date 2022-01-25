@@ -6,12 +6,12 @@
 #define UART_TASK_PRIORITY      osPriorityNormal
 #define UART_TASK_STACK_SIZE    OS_STACK_SIZE
 
-#define UART_SLEEP  1000ms
-#define BAUD_RATE   115200
+#define UART_SLEEP_TASK  100ms
+#define UART_BAUD_RATE   115200
 
-extern BufferedSerial serial_port;
+// extern BufferedSerial serial_port;
 
 void UART_Task();
-int UARTInitialization (void);
+osStatus UART_TaskInit (void);
 
 #endif
