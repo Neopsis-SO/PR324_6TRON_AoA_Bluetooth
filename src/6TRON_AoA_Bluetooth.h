@@ -6,6 +6,6 @@
 
 int init_main(void);
 
-// Thread UART_TaskOS;
+// rtos::Queue<char[64], 8> xUARTreceiveQueue();
 
 #endif

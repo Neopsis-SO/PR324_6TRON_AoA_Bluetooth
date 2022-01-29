@@ -9,8 +9,6 @@
 #define UART_SLEEP_TASK  100ms
 #define UART_BAUD_RATE   115200
 
-// extern BufferedSerial serial_port;
-
 void UART_Task();
 osStatus UART_TaskInit (void);
 

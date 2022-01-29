@@ -7,6 +7,7 @@
 #include "UART/UART.h"
 
 
+
 int main()
 {
     // System initialization
@@ -26,7 +27,7 @@ int main()
 
     while (true)
     {
-        printf("I'm alive\n");
+        // printf("I'm alive\n");
         ThisThread::sleep_for(5s);
     }
 }
