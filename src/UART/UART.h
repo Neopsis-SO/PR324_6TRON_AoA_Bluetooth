@@ -9,7 +9,19 @@
 #define UART_SLEEP_TASK  100ms
 #define UART_BAUD_RATE   115200
 
+#define NB_CHAR_SECT 32
+#define NB_CHAR_TRAME 256
+
 void UART_Task();
 osStatus UART_TaskInit (void);
+
+// Store data collect from UBLOX-C211
+struct UBLOX_Data
+{
+    int rssi_pol1;
+    int angle_azimuth;
+    int angle_elevation;
+    int rssi_pol2;
+};
 
 #endif
