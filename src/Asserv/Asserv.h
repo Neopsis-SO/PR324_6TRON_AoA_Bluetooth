@@ -1,5 +1,7 @@
-#ifndef __ASSERV
-#define __ASSERV
+#ifndef __ASSERV_H__
+#define __ASSERV_H__
+
+#include "6TRON_AoA_Bluetooth.h"
 
 #define MAX_LIM_ERR_INTE 10000000
 #define MIN_LIM_ERR_INTE -10000000
