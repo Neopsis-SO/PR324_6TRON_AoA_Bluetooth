@@ -1,5 +1,6 @@
 #include "6TRON_AoA_Bluetooth.h"
 #include "UART/UART.h"
+#include "Asserv/AsservTask.h"
 
 int init_main(void)
 {
@@ -11,6 +12,14 @@ int init_main(void)
         returnedValue = osError;
     } else {
         printf("UART initialization SUCCESS !\n");
+    }
+
+    //ASSERV Initialization
+    if(ASSERV_TaskInit() != osOK) {
+        printf("ASSERV initialization FAILED !\n");
+        returnedValue = osError;
+    } else {
+        printf("ASSERV initialization SUCCESS !\n");
     }
 
     //Return the global initialization status

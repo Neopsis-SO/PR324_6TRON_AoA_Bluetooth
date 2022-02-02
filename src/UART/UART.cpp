@@ -133,7 +133,7 @@ void UART_Task()
                 }
             }
         } else {
-            ThisThread::sleep_for(10ms);
+            ThisThread::sleep_for(UART_SLEEP_TASK);
         }
     }
 }
