@@ -7,6 +7,8 @@
 #include "UART/UART.h"
 #include "Asserv/AsservTask.h"
 
+rtos::MemoryPool<UBLOX_Data, 32> xUARTsharedMemory;
+rtos::Queue<UBLOX_Data, 32> xUARTreceiveQueue;
 
 int main()
 {

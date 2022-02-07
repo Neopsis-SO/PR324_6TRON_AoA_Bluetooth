@@ -9,10 +9,6 @@
 #define UART_SLEEP_TASK  10ms
 #define UART_BAUD_RATE   115200
 
-#define UART_BUFFER_SIZE    256
-
-#define NB_CHAR_SECT 32
-#define NB_CHAR_TRAME 256
 
 void UART_Task();
 osStatus UART_TaskInit (void);

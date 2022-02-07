@@ -6,8 +6,6 @@
 
 int init_main(void);
 
-// rtos::Queue<char[64], 8> xUARTreceiveQueue();
-
 // Store data collect from UBLOX-C211
 typedef struct {
     int rssi_pol1;
@@ -15,5 +13,8 @@ typedef struct {
     int angle_elevation;
     int rssi_pol2;
 } UBLOX_Data;
+
+extern rtos::MemoryPool<UBLOX_Data, 32> xUARTsharedMemory;
+extern rtos::Queue<UBLOX_Data, 32> xUARTreceiveQueue;
 
 #endif

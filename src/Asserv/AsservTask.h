@@ -6,7 +6,7 @@
 #define ASSERV_TASK_PRIORITY      osPriorityNormal
 #define ASSERV_TASK_STACK_SIZE    OS_STACK_SIZE
 
-#define ASSERV_SLEEP_TASK  1000ms
+#define ASSERV_SLEEP_TASK  1ms
 
 void ASSERV_Task();
 osStatus ASSERV_TaskInit (void);
