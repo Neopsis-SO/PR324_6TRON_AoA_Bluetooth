@@ -6,9 +6,10 @@
 void send_thread(void);
 
 typedef struct {
-    int    voltage;   /* AD result of measured voltage */
-    int    current;   /* AD result of measured current */
-    uint32_t counter;   /* A counter value               */
+    int    rssi;   /* AD result of measured voltage */
+    int    azimut;   /* AD result of measured current */
+    int    elevation;   /* A counter value               */
+    int    rssi2;
 } message_t;
 
 extern rtos::MemoryPool<message_t, 16> mpool;
