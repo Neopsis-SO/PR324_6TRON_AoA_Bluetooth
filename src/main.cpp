@@ -9,6 +9,7 @@
 
 rtos::MemoryPool<UBLOX_Data, 32> xUARTsharedMemory;
 rtos::Queue<UBLOX_Data, 32> xUARTreceiveQueue;
+rtos::Semaphore xSemaphoreAsserv(1);
 
 int main()
 {
