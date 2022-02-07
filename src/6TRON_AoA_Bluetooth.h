@@ -17,5 +17,6 @@ typedef struct {
 extern rtos::MemoryPool<UBLOX_Data, 32> xUARTsharedMemory;
 extern rtos::Queue<UBLOX_Data, 32> xUARTreceiveQueue;
 extern rtos::Semaphore xSemaphoreAsserv;
+extern UBLOX_Data globalMessageUBLOX;
 
 #endif

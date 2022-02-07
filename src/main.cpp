@@ -11,6 +11,8 @@ rtos::MemoryPool<UBLOX_Data, 32> xUARTsharedMemory;
 rtos::Queue<UBLOX_Data, 32> xUARTreceiveQueue;
 rtos::Semaphore xSemaphoreAsserv(1);
 
+UBLOX_Data globalMessageUBLOX;
+
 int main()
 {
     // System initialization
@@ -38,7 +40,16 @@ int main()
 
     while (true)
     {
-        // printf("I'm alive\n");
-        ThisThread::sleep_for(5s);
+        osEvent evt = xUARTreceiveQueue.get();
+        if (evt.status == osEventMessage) {
+            UBLOX_Data* messageUBLOX = (UBLOX_Data*)evt.value.p;
+            // printf("Received message -> RSSI:%d, AZIMUTH:%d, ELEVATION:%d, RSSI2:%d\n", messageUBLOX->rssi_pol1, messageUBLOX->angle_azimuth, messageUBLOX->angle_elevation, messageUBLOX->rssi_pol2);
+            xSemaphoreAsserv.acquire();
+            globalMessageUBLOX = *messageUBLOX;
+            xSemaphoreAsserv.release();
+            // printf("Copied message -> RSSI:%d, AZIMUTH:%d, ELEVATION:%d, RSSI2:%d\n", globalMessageUBLOX.rssi_pol1, globalMessageUBLOX.angle_azimuth, globalMessageUBLOX.angle_elevation, globalMessageUBLOX.rssi_pol2);
+            xUARTsharedMemory.free(messageUBLOX);
+        }
+        // ThisThread::sleep_for(5s);
     }
 }
