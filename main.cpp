@@ -5,6 +5,42 @@
 
 #include "main.h"
 
+#define   ESP8266_DEFAULT_BAUD_RATE   115200
+
+int main()
+{
+    BufferedSerial *_serial;
+    ATCmdParser *_parser;
+
+    printf("\nATCmdParser with ESP8266 example");
+
+    _serial = new BufferedSerial(UART1_TX, UART1_RX, ESP8266_DEFAULT_BAUD_RATE);
+    _parser = new ATCmdParser(_serial, "\r\n");
+    // _parser->set_delimiter(",");
+    _parser->debug_on(true);
+    char cmdType[32];
+    char tmpChar[32];
+    char tmpChar2[32];
+    int rssi, azimut, elevation, rssi2 = 0;
+    //Now get the FW version number of ESP8266 by sending an AT command
+    printf("\nATCmdParser: Retrieving FW version");
+    _parser->send("AT");
+    int version = 1;
+    while(true)
+    {
+        if(_parser->recv("+UUDF:6C1DEBA42203,%d,%d,%d,%d", &rssi, &azimut, &elevation, &rssi2)) {
+        // if (_parser->recv("AT")) {
+            printf("RSSI:%d, AZIMUT:%d, ELEVATION:%d, RSSI2:%d\n", rssi, azimut, elevation, rssi2);
+            // printf("\nATCmdParser: FW version: %d", version);
+            // printf("\nATCmdParser: Retrieving FW version successful");
+        } else {
+            printf("\nATCmdParser: Retrieving FW version failed");
+            // return -1;
+        }
+    }
+}
+
+/*
 rtos::MemoryPool<message_t, 16> mpool;
 rtos::Queue<message_t, 16> queue;
 Thread thread;
@@ -29,3 +65,4 @@ int main(void)
         // }
     }
 }
+*/

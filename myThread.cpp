@@ -1,5 +1,7 @@
 #include "main.h"
 
+#define   ESP8266_DEFAULT_BAUD_RATE   115200
+
 /* Send Thread */
 void send_thread(void)
 {
