@@ -18,8 +18,11 @@ void function_Asserv(void){
     static int  reset =0;
     static float LectureAngle=0;
     static float LectureDistance=0;
+    static float LectureDistance2=0;
+
     static float ConsAngle=0;
-    static float ConsDistance=0;
+    static float ConsDistance=-60;//5
+
     static float CommandeMG=0;
     static float CommandeMD=0;
     static float CommandeDistance=0;
@@ -32,14 +35,11 @@ void function_Asserv(void){
     if(xSemaphoreAsserv.try_acquire())
     {
         LectureAngle=globalMessageUBLOX.angle_azimuth;
-        // LectureDistance=globalMessageUBLOX.rssi_pol1;
-        LectureDistance=0;
+        LectureDistance=globalMessageUBLOX.rssi_pol1;
+        //LectureDistance2=globalMessageUBLOX.rssi_pol2;
+        //LectureDistance=0;
         xSemaphoreAsserv.release();
     }
-    printf(">LectureAngle:");
-    printf("%f\n",LectureAngle);
-    printf(">LectureDistance:");
-    printf("%f\n",LectureDistance);
     Asserv.AsservMGMD(LectureAngle,LectureDistance,ConsAngle,ConsDistance,&CommandeMG,&CommandeMD,reset);
     VitesseMG=Asserv.get_vitesseMG();
     VitesseMD=Asserv.get_vitesseMD();
@@ -49,6 +49,26 @@ void function_Asserv(void){
     ConsingeMD=Asserv.get_ConsingeMD();
     MoteurG.Speed(CommandeMG/100);
     MoteurD.Speed(CommandeMD/100);
+    printf(">LectureAngle:");
+    printf("%f\n",LectureAngle);
+   /* printf(">LectureDistance:");
+    printf("%f\n",LectureDistance);
+    printf(">LectureDistance2:");
+    printf("%f\n",LectureDistance2);
+    printf(">CommandeAngle:");
+    printf("%f\n",CommandeAngle);
+    printf(">CommandeDistance:");
+    printf("%f\n",CommandeDistance);*/
+
+    printf(">ConsingeMG:");
+    printf("%f\n",ConsingeMG);
+    printf(">ConsingeMD:");
+    printf("%f\n",ConsingeMD);
+    printf(">VG:");
+    printf("%f\n",VitesseMG);
+    printf(">VD:");
+    printf("%f\n",VitesseMD);
+  
 }
 
 osStatus ASSERV_TaskInit (void)

@@ -5,7 +5,8 @@
 
 #include "6TRON_AoA_Bluetooth.h"
 #include "UART/UART.h"
-#include "Asserv/AsservTask.h"
+#include "Asserv.h"
+#include "AsservTask.h"
 
 rtos::MemoryPool<UBLOX_Data, 32> xUARTsharedMemory;
 rtos::Queue<UBLOX_Data, 32> xUARTreceiveQueue;
@@ -14,7 +15,11 @@ rtos::Semaphore xSemaphoreAsserv(1);
 UBLOX_Data globalMessageUBLOX;
 
 int main()
-{
+{   
+    float distance_lisse_tab[5];
+    float distance_lisse;
+    float distance_lisse_tab2[5];
+    float distance_lisse2;
     // System initialization
     if (init_main() != osOK) {
         printf("Initialization FAILED\n");
@@ -45,6 +50,9 @@ int main()
             UBLOX_Data* messageUBLOX = (UBLOX_Data*)evt.value.p;
             // printf("Received message -> RSSI:%d, AZIMUTH:%d, ELEVATION:%d, RSSI2:%d\n", messageUBLOX->rssi_pol1, messageUBLOX->angle_azimuth, messageUBLOX->angle_elevation, messageUBLOX->rssi_pol2);
             xSemaphoreAsserv.acquire();
+            messageUBLOX->rssi_pol1 =lissage(messageUBLOX->rssi_pol1,distance_lisse_tab,5);
+            messageUBLOX->rssi_pol2 =lissage(messageUBLOX->rssi_pol2,distance_lisse_tab2,5);
+
             globalMessageUBLOX = *messageUBLOX;
             xSemaphoreAsserv.release();
             // printf("Copied message -> RSSI:%d, AZIMUTH:%d, ELEVATION:%d, RSSI2:%d\n", globalMessageUBLOX.rssi_pol1, globalMessageUBLOX.angle_azimuth, globalMessageUBLOX.angle_elevation, globalMessageUBLOX.rssi_pol2);

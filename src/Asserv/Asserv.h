@@ -3,26 +3,29 @@
 
 #include "6TRON_AoA_Bluetooth.h"
 
-#define MAX_LIM_ERR_INTE 10000000
-#define MIN_LIM_ERR_INTE -10000000
+#define MAX_LIM_ERR_INTE 10000
+#define MIN_LIM_ERR_INTE -10000
 #define MAX_LIM_COMMANDE  100
 #define MIN_LIM_COMMANDE -100
 
 #define RA 0.11 //distance entre point milieu et la roue en mètre
 
 
-#define KP_MG 1//18 //coefficient proportionnel Asserv Vitesse Moteur Gauche 
-#define KI_MG 0///0.15  //coefficient intégral Asserv Vitesse Moteur Gauche
-#define KP_MD 1//18 //coefficient proportionnel Asserv Vitesse Moteur Droit
-#define KI_MD 0//0.15 //coefficient intégral  Asserv Vitesse Moteur Droit
+#define KP_MG 0.58//0.6 //coefficient proportionnel Asserv Vitesse Moteur Gauche 
+#define KI_MG 0.02///0.15  //coefficient intégral Asserv Vitesse Moteur Gauche
+#define KD_MG 0//0.0045
 
-#define KP_Pos  1 //0.0007 coefficient proportionnel Asserv Position (Distance)
+#define KP_MD 0.58//0.6 //coefficient proportionnel Asserv Vitesse Moteur Droit
+#define KI_MD 0.02//0.15 //coefficient intégral  Asserv Vitesse Moteur Droit
+#define KD_MD 0//0.0045
+
+#define KP_Pos 0.02 //0.0007 coefficient proportionnel Asserv Position (Distance)
 #define KI_Pos 0//coefficient intégral Asserv Position (Distance)
-#define KP_Angle 1// 0.00082 coefficient proportionnel Asserv Position (Angle)
+#define KP_Angle 0.5// 0.00082 coefficient proportionnel Asserv Position (Angle)
 #define KI_Angle 0// 0.000008 coefficient intégral Asserv Position (Angle)
 
 #define PI 3.1415926535
-
+float lissage(const float in,float tab[],int len);
 class Asserv 
 {
     public:
