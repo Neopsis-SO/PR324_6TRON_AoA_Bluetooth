@@ -19,6 +19,7 @@ void function_Asserv(void){
     static float LectureAngle=0;
     static float LectureDistance=0;
     static float LectureDistance2=0;
+    
 
     static float ConsAngle=0;
     static float ConsDistance=0;//5
@@ -35,12 +36,17 @@ void function_Asserv(void){
     if(xSemaphoreAsserv.try_acquire())
     {
         LectureAngle=globalMessageUBLOX.angle_azimuth;
-        //LectureDistance=globalMessageUBLOX.rssi_pol1;
-        //LectureDistance2=globalMessageUBLOX.rssi_pol2;
-        LectureDistance=0;
+        LectureDistance=globalMessageUBLOX.rssi_pol1;
+        if(LectureDistance>-55){
+            LectureDistance2 = 0;
+        }
+        if(LectureDistance<-65){
+            LectureDistance2 = -0.1;
+        }
+        //LectureDistance=0;
         xSemaphoreAsserv.release();
     }
-    Asserv.AsservMGMD(LectureAngle,LectureDistance,ConsAngle,ConsDistance,&CommandeMG,&CommandeMD,reset);
+    Asserv.AsservMGMD(LectureAngle,LectureDistance2,ConsAngle,ConsDistance,&CommandeMG,&CommandeMD,reset);
     VitesseMG=Asserv.get_vitesseMG();
     VitesseMD=Asserv.get_vitesseMD();
     CommandeAngle=Asserv.get_CommandeAngle();
@@ -49,25 +55,20 @@ void function_Asserv(void){
     ConsingeMD=Asserv.get_ConsingeMD();
     MoteurG.Speed(CommandeMG/100);
     MoteurD.Speed(CommandeMD/100);
-    printf(">LectureAngle:");
-    printf("%f\n",LectureAngle);
-   /* printf(">LectureDistance:");
+    //printf(">LectureAngle:");
+   // printf("%f\n",LectureAngle);
+    printf(">LectureRSSI:");
     printf("%f\n",LectureDistance);
-    printf(">LectureDistance2:");
+    printf(">LectureRSSI2:");
     printf("%f\n",LectureDistance2);
-    printf(">CommandeAngle:");
-    printf("%f\n",CommandeAngle);
-    printf(">CommandeDistance:");
-    printf("%f\n",CommandeDistance);*/
-
-    printf(">ConsingeMG:");
+    /*printf(">ConsingeMG:");
     printf("%f\n",ConsingeMG);
     printf(">ConsingeMD:");
     printf("%f\n",ConsingeMD);
     printf(">VG:");
     printf("%f\n",VitesseMG);
     printf(">VD:");
-    printf("%f\n",VitesseMD);
+    printf("%f\n",VitesseMD);*/
   
 }
 
