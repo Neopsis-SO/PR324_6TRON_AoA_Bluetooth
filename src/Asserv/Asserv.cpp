@@ -127,12 +127,12 @@ void  Asserv::AsservMGMD(const float LectureAngle, const float  LectureDistance,
 const float ConsAngle, const float ConsDistance, float * CommandeMG, float* CommandeMD,const int Reset)
 {
   calcul_vd_vg(LectureAngle,LectureDistance);
-  CommandeDistance =Asserv_Distance(LectureDistance,ConsDistance,Reset);
+  CommandeDistance=0.1; //=Asserv_Distance(LectureDistance,ConsDistance,Reset);
   CommandeAngle =Asserv_Angle(LectureAngle,ConsAngle,Reset);
   ConsingeMG=((CommandeDistance/Te)-(CommandeAngle*(PI/180)/Te)*RA);
   ConsingeMD=((CommandeAngle*(PI/180)/Te)*RA)+((CommandeDistance/Te));
-  *CommandeMG= Asserv_V_MD(vitesseMG,0,Reset);
-  *CommandeMD=Asserv_V_MG(vitesseMD,0,Reset);
+  *CommandeMG= Asserv_V_MD(vitesseMG,ConsingeMG,Reset);
+  *CommandeMD=Asserv_V_MG(vitesseMD,ConsingeMD,Reset);
 }
 
 

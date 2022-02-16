@@ -21,7 +21,7 @@ void function_Asserv(void){
     static float LectureDistance2=0;
 
     static float ConsAngle=0;
-    static float ConsDistance=-60;//5
+    static float ConsDistance=0;//5
 
     static float CommandeMG=0;
     static float CommandeMD=0;
@@ -35,9 +35,9 @@ void function_Asserv(void){
     if(xSemaphoreAsserv.try_acquire())
     {
         LectureAngle=globalMessageUBLOX.angle_azimuth;
-        LectureDistance=globalMessageUBLOX.rssi_pol1;
+        //LectureDistance=globalMessageUBLOX.rssi_pol1;
         //LectureDistance2=globalMessageUBLOX.rssi_pol2;
-        //LectureDistance=0;
+        LectureDistance=0;
         xSemaphoreAsserv.release();
     }
     Asserv.AsservMGMD(LectureAngle,LectureDistance,ConsAngle,ConsDistance,&CommandeMG,&CommandeMD,reset);
