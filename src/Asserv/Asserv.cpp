@@ -7,7 +7,7 @@
 float lissage(const float in,float tab[],int len)
 { 
   float Sum=0;
-  for(int i=0; i<5; i++){
+  for(int i=0; i<len; i++){
     tab[i]=tab[i+1];
   }
   tab[len-1]=in;
@@ -118,7 +118,7 @@ float Asserv::Asserv_Angle(const float Angle, const float ConsAngle,int reset)
 
 float Asserv::get_vitesseMG(){return vitesseMG;}
 float Asserv::get_vitesseMD(){return vitesseMD;}
-float Asserv::get_CommandeDistance(){return CommandeDistance;}
+//float Asserv::get_CommandeDistance(){return CommandeDistance;}
 float Asserv::get_CommandeAngle(){return CommandeAngle;}
 float Asserv::get_ConsingeMG(){return ConsingeMG;}
 float Asserv::get_ConsingeMD(){return ConsingeMD;}
@@ -127,7 +127,7 @@ void  Asserv::AsservMGMD(const float LectureAngle, const float  LectureDistance,
 const float ConsAngle, const float ConsDistance, float * CommandeMG, float* CommandeMD,const int Reset)
 {
   calcul_vd_vg(LectureAngle,LectureDistance);
-  CommandeDistance=Asserv_Distance(LectureDistance,ConsDistance,Reset); //0.1
+  //CommandeDistance=Asserv_Distance(LectureDistance,ConsDistance,Reset); //0.1
   CommandeAngle =Asserv_Angle(LectureAngle,ConsAngle,Reset);
   ConsingeMG=((CommandeDistance/Te)-(CommandeAngle*(PI/180)/Te)*RA);
   ConsingeMD=((CommandeAngle*(PI/180)/Te)*RA)+((CommandeDistance/Te));

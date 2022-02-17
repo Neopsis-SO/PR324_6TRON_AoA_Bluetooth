@@ -21,7 +21,7 @@
 
 #define KP_Pos 0 //0.0007 coefficient proportionnel Asserv Position (Distance)
 #define KI_Pos 0//coefficient intégral Asserv Position (Distance)
-#define KP_Angle 0.08// 0.00082 coefficient proportionnel Asserv Position (Angle)
+#define KP_Angle 0.1// 0.00082 coefficient proportionnel Asserv Position (Angle)
 #define KI_Angle 0//0.002// 0.000008 coefficient intégral Asserv Position (Angle)
 
 #define PI 3.1415926535
@@ -34,10 +34,11 @@ class Asserv
         const float ConsAngle, const float ConsDistance, float * CommandeMG, float* CommandeMD,const int Reset);
         float get_vitesseMG();
         float get_vitesseMD();
-        float get_CommandeDistance();
+        //float get_CommandeDistance();
         float get_CommandeAngle();
         float get_ConsingeMG();
         float get_ConsingeMD();
+        float CommandeDistance;
 
     private:
         void range(float*commande, int max, int min); //limite la plage d'une valeur entre min et max
@@ -50,7 +51,6 @@ class Asserv
         float Te;
         float vitesseMG;
         float vitesseMD;
-        float CommandeDistance;
         float CommandeAngle;
         float ConsingeMG;
         float ConsingeMD;
